@@ -1,0 +1,49 @@
+[build-system]
+requires = [
+  "setuptools >= 40.9.0",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "charge_model_study"
+description = "Study looking at different charge models"
+license = {file = "LICENSE" }
+authors = [
+    {name = "Lily Wang", email = "lily.wang@anu.edu.au"},
+]
+maintainers = [
+    {name = "Lily Wang", email = "lily.wang@anu.edu.au"},
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "MDAnalysis>=2.0.0",
+]
+keywords = [
+    "molecular simulations",
+]
+dynamic = [
+    "version",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=6.0",
+    "pytest-xdist>=2.5",
+    "pytest-cov>=3.0",
+]
+doc = [
+    "sphinx",
+    "sphinx_rtd_theme",
+]
+
+# [project.urls]
+# source = "https://github.com/lilyminium/charge_model_study"
+# documentation = "https://charge_model_study.readthedocs.io"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "charge_model_study/tests",
+]

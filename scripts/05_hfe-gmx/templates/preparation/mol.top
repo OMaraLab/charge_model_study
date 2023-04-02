@@ -1,0 +1,14 @@
+
+#include "../../../../../gromos54a7_atb.ff/forcefield.itp"
+#include "../../../../../gromos54a7_atb.ff/spc.itp"
+#include "../../../../../gromos54a7_atb.ff/ions.itp"
+#include "../mol.itp"
+
+[ system ]
+; name
+{{ molecule_name }}
+
+[ molecules ]
+; Compound	nmols
+MOL          1
+

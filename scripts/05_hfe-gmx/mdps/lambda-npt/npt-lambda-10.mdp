@@ -1,0 +1,116 @@
+; VARIOUS PREPROCESSING OPTIONS
+title                    = npt
+
+; RUN CONTROL PARAMETERS
+integrator               = sd
+; Start time and timestep in ps
+tinit                    = 0
+dt                       = 0.002
+nsteps                   = 50000  ; 100 ps
+; mode for center of mass motion removal
+comm-mode                = Linear
+; number of steps for center of mass motion removal
+; nstcomm                  = 100
+
+; OUTPUT CONTROL OPTIONS
+; Output frequency for coords (x), velocities (v) and forces (f)
+nstxout                  = 0
+nstvout                  = 0
+nstfout                  = 0
+; Checkpointing helps you continue after crashes
+nstcheckpoint            = 100
+; Output frequency for energies to log file and energy file
+nstlog                   = 1000
+nstenergy                = 1000
+; Output frequency and precision for xtc file
+nstxtcout                = 1000
+xtc-precision            = 1000
+
+; NEIGHBORSEARCHING PARAMETERS
+; nblist update frequency
+cutoff-scheme            = Verlet
+nstlist                  = 10
+; ns algorithm (simple or grid)
+ns_type                  = grid
+; Periodic boundary conditions: xyz (default), no (vacuum)
+; or full (infinite systems only)
+pbc                      = xyz
+; nblist cut-off        
+rlist                    = 1.4  ; Cut-off distance for the short-range neighbor list
+
+; OPTIONS FOR ELECTROSTATICS AND VDW
+; Method for doing electrostatics
+coulombtype              = pme
+rcoulomb-switch          = 0
+rcoulomb                 = 1.4
+; Dielectric constant (DC) for cut-off or DC of reaction field
+; Method for doing Van der Waals
+vdw-type                 = cut-off
+vdw-modifier             = Potential-shift-Verlet
+dispcorr                 = no
+; cut-off lengths       
+rvdw-switch              = 0.9
+rvdw                     = 1.4
+; Extension of the potential lookup tables beyond the cut-off
+; Spacing for the PME/PPPM FFT grid
+fourierspacing           = 0.12
+
+; OPTIONS FOR WEAK COUPLING ALGORITHMS
+; Temperature coupling  
+Tcoupl                   = v-rescale  ; ignored with sd integrator
+tc-grps                  = MOL Water
+tau_t                    = 2.0 2.0    ; When used for sd integrator, an appropriate value for tau-t is 2 ps
+ref_t                    = 298.15 298.15
+; Pressure coupling     
+Pcoupl                   = parrinello-rahman
+Pcoupltype               = isotropic
+tau_p                    = 2.0  ;parrinello-rahman is more stable with larger tau-p, DdJ, 20130422
+compressibility          = 4.5e-5 4.5e-5
+ref_p                    = 1        1  ; bar
+refcoord_scaling         = COM
+
+; velocity generation
+gen_vel                  = no
+gen_temp                 = 298.15
+gen_seed                 = -1
+continuation             = yes
+
+; constraint options   
+constraints              = all-bonds
+; Type of constraint algorithm
+constraint-algorithm     = Lincs
+; Use successive overrelaxation to reduce the number of shake iterations
+Shake-SOR                = no
+; Relative tolerance of shake
+shake-tol                = 1e-04
+; Highest order in the expansion of the constraint coupling matrix
+lincs-order              = 4
+lincs-iter               = 1
+lincs-warnangle          = 30
+morse                    = no  ; (do not) convert harmonic bonds to morse potentials
+
+; ENERGY GROUP EXCLUSIONS
+; Pairs of energy groups for which all non-bonded interactions are excluded
+energygrp_excl           =
+; energygrps               = MOL
+
+; Free energy stuff
+free-energy              = yes
+init_lambda_state        = 10
+
+; lambda states          =    0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19
+coul_lambdas             = 0.00 0.25 0.50 0.75 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00
+vdw_lambdas              = 0.00 0.00 0.00 0.00 0.00 0.05 0.10 0.15 0.20 0.30 0.40 0.50 0.60 0.65 0.70 0.80 0.85 0.90 0.95 1.00
+couple-moltype           = MOL
+couple-lambda0           = vdw-q
+couple-lambda1           = none
+couple-intramol          = no
+sc-alpha                 = 0.5
+sc-sigma                 = 0.3
+sc-power                 = 1
+sc-coul                  = no
+nstdhdl                  = 100
+separate-dhdl-file       = no
+dhdl-derivatives         = yes
+dhdl-print-energy        = yes
+calc-lambda-neighbors    = -1
